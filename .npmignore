@@ -1,0 +1,5 @@
+src/
+private.pem
+public.pem
+lib/test.js
+lib/test.d.ts

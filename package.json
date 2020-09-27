@@ -1,0 +1,27 @@
+{
+  "name": "satispay-business-sdk",
+  "version": "0.1.0",
+  "description": "Satispay Business API NodeJS SDK ",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "prepublish": "yarn build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "keywords": [
+    "satispay"
+  ],
+  "author": "Giovanni Mogna <mogna.giovanni@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "@types/node-fetch": "^2.5.7",
+    "tslint": "^6.1.3",
+    "typescript": "^4.0.3"
+  },
+  "dependencies": {
+    "moment": "^2.29.0",
+    "node-fetch": "^2.6.1"
+  }
+}
