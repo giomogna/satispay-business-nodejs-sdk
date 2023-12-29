@@ -1,5 +1,11 @@
 # satispay-business
 
+## 0.1.0-next.3
+
+### Minor Changes
+
+- d29404c: Add `getDailyClosure` API
+
 ## 0.1.0-next.2
 
 ### Patch Changes
