@@ -1,5 +1,11 @@
 # satispay-business
 
+## 0.1.0-next.1
+
+### Patch Changes
+
+- df03c1d: Fix obtainKeyId method
+
 ## 0.1.0-next.0
 
 ### Minor Changes
