@@ -5,6 +5,7 @@
     "satispay-business": "0.0.0"
   },
   "changesets": [
+    "flat-otters-do",
     "rude-badgers-give",
     "wise-seahorses-sing"
   ]
