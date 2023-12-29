@@ -4,5 +4,7 @@
   "initialVersions": {
     "satispay-business": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "wise-seahorses-sing"
+  ]
 }
