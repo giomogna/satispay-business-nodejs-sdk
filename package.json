@@ -20,6 +20,9 @@
     "type": "git",
     "url": "https://github.com/giomogna/satispay-business-nodejs-sdk"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "ISC",
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
