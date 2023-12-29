@@ -139,6 +139,7 @@ digest: SHA-256=${digest}`;
     const response = await fetch(
       `${baseUrl}/g_business/v1/authentication_keys`,
       {
+        method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
           Accept: "application/json",
