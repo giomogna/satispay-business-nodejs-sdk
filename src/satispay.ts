@@ -5,6 +5,7 @@ import { Payment } from "./payment/payment";
 import type { RequestOptions } from "./types/request";
 import { getFormattedCurrentDate } from "./utils/date";
 import { base64ToPem } from "./utils/decode-base64";
+import { Shop } from "./shop/shop";
 
 interface InitOptions {
   privateKey?: string;
@@ -26,6 +27,7 @@ export class Satispay {
 
   readonly consumers = new Consumers(this);
   readonly payment = new Payment(this);
+  readonly shop = new Shop(this);
 
   constructor({
     privateKey = process.env.SATISPAY_PRIVATE_KEY,
