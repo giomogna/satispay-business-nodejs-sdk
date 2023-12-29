@@ -11,7 +11,8 @@
   "sideEffects": false,
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts-resolve --minify --clean --sourcemap --legacy-output --dts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "pnpm build && changeset publish"
   },
   "keywords": [],
   "author": "Giovanni Mogna <mogna.giovanni@gmail.com>",
@@ -21,11 +22,15 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@types/eslint": "^8.44.6",
     "@types/node": "^20.8.10",
     "eslint": "^8.52.0",
     "prettier": "^3.0.3",
     "tsup": "^7.2.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "date-fns": "^3.0.6"
   }
 }

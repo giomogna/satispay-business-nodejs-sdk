@@ -1,4 +1,4 @@
-import format from "date-fns/format";
+import { format } from "date-fns/format";
 
 const DATE_FORMAT_STRING = "iii, dd MMM yyyy HH:mm:ss xx";
 
