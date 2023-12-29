@@ -130,7 +130,7 @@ digest: SHA-256=${digest}`;
   }
 
   static async obtainKeyId(
-    privateKey: string,
+    publicKey: string,
     token: string,
     environment: "staging" | "production" = "production"
   ): Promise<{ key_id: string }> {
@@ -145,7 +145,7 @@ digest: SHA-256=${digest}`;
           Accept: "application/json",
         }),
         body: JSON.stringify({
-          private_key: base64ToPem(privateKey),
+          public_key: base64ToPem(publicKey),
           token,
         }),
       }
