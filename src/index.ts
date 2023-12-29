@@ -1,0 +1,1 @@
+export { Satispay } from "./satispay";
