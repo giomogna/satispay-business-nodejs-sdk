@@ -34,9 +34,10 @@ jobs:
           node-version: 24
           cache: pnpm
 
-      # Trusted publishing needs npm >= 11.5.1
+      # Trusted publishing needs npm >= 11.5.1. Stay on 11: pnpm passes its own
+      # --no-git-checks flag through to `npm publish`, which npm 12 rejects.
       - name: Update npm
-        run: npm install -g npm@latest
+        run: npm install -g npm@^11.5.1
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
