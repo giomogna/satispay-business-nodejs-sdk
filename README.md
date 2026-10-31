@@ -16,16 +16,32 @@ pnpm add satispay-business
 
 ## Setup
 
-### 1. [Generate a key pair](https://developers.satispay.com/reference/generate-rsa-keys)
+### 1. Generate keys and obtain the KeyId
+
+With the activation code from the Satispay Business dashboard (one-time use; sandbox codes come from Satispay):
+
+```bash
+npx satispay-business keygen --token 6N3ECU --env staging --env-file .env
+```
+
+This generates a 4096-bit RSA key pair (`private.pem`, `public.pem`), [obtains the KeyId](https://developers.satispay.com/reference/keyid) and appends `SATISPAY_KEY_ID` and `SATISPAY_PRIVATE_KEY` to `.env`. Without `--env-file` the two lines are printed instead.
+
+- Existing keys: `--private-key private.pem` (optionally `--public-key public.pem`)
+- `--out-dir <dir>` to choose where keys are written; existing files are never overwritten without `--force`
+- Production asks for confirmation (or pass `--yes`)
+
+Run `npx satispay-business --help` for all options.
+
+### 2. Or do it manually
+
+[Generate a key pair](https://developers.satispay.com/reference/generate-rsa-keys):
 
 ```bash
 openssl genrsa -out private.pem 4096
 openssl rsa -in private.pem -outform PEM -pubout -out public.pem
 ```
 
-### 2. [Obtain the KeyId](https://developers.satispay.com/reference/keyid)
-
-Use the activation token from the Satispay Business dashboard (one-shot):
+Then obtain the KeyId:
 
 ```ts
 import { readFileSync } from "node:fs";
