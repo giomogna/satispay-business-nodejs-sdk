@@ -32,7 +32,8 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "playground": "tsx --env-file-if-exists=playground/.env playground/test.ts"
   },
   "author": "Giovanni Mogna <mogna.giovanni@gmail.com>",
   "repository": {
@@ -51,6 +52,7 @@
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.10",
     "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.1",
     "vitest": "^5.0.5"

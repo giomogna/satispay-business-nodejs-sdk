@@ -15,6 +15,6 @@
     "noEmit": true,
     "ignoreDeprecations": "6.0"
   },
-  "include": ["src", "test", "*.ts"],
+  "include": ["src", "test", "playground", "*.ts"],
   "exclude": ["node_modules", "dist"]
 }
