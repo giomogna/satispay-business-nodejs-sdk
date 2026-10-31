@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "allowJs": true,
-    "checkJs": true,
-    "skipLibCheck": true,
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "noUncheckedIndexedAccess": true
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "ignoreDeprecations": "6.0"
   },
-  "include": ["**/*.ts", "**/*.cjs", "**/*.mjs"],
-  "exclude": ["node_modules"]
+  "include": ["src", "test", "playground", "*.ts"],
+  "exclude": ["node_modules", "dist"]
 }

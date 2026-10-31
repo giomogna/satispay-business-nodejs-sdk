@@ -1,12 +1,15 @@
 import type { Satispay } from "../satispay";
-import {
-  UpdatePaymentResponse,
-  type CreatePaymentRequest,
-  type CreatePaymentResponse,
-  type GetPaymentResponse,
-  type UpdatePaymentRequest,
+import type { RequestOptions } from "../types/request";
+import type { Payment as PaymentObjectType } from "./types/common";
+import type {
+  CreatePaymentRequest,
+  CreatePaymentResponse,
+  GetPaymentResponse,
   ListPaymentsRequest,
   ListPaymentsResponse,
+  RefundPaymentRequest,
+  UpdatePaymentRequest,
+  UpdatePaymentResponse,
 } from "./types";
 
 export class Payment {
@@ -19,8 +22,11 @@ export class Payment {
    *
    * @link https://developers.satispay.com/reference/get-the-details-of-a-payment
    */
-  async get(id: string) {
-    return this.satispay.get<GetPaymentResponse>(`${this.apiPath}/${id}`);
+  async get(id: string, options?: RequestOptions) {
+    return this.satispay.get<GetPaymentResponse>(
+      `${this.apiPath}/${encodeURIComponent(id)}`,
+      { ...options },
+    );
   }
 
   /**
@@ -29,13 +35,34 @@ export class Payment {
    *
    * @link https://developers.satispay.com/reference/get-list-of-payments
    */
-  async list(params?: ListPaymentsRequest) {
-    const searchParams = params
-      ? `?${new URLSearchParams(params as any).toString()}`
-      : "";
-    return this.satispay.get<ListPaymentsResponse>(
-      `${this.apiPath}${searchParams}`
-    );
+  async list(params?: ListPaymentsRequest, options?: RequestOptions) {
+    return this.satispay.get<ListPaymentsResponse>(this.apiPath, {
+      ...options,
+      query: params,
+    });
+  }
+
+  /**
+   * Iterates over all the payments matching `params`, fetching further pages
+   * (using `starting_after`) as needed.
+   */
+  async *listAll(
+    params?: Omit<ListPaymentsRequest, "starting_after">,
+    options?: RequestOptions,
+  ): AsyncGenerator<PaymentObjectType, void, undefined> {
+    let startingAfter: string | undefined;
+    for (;;) {
+      const page: ListPaymentsResponse = await this.list(
+        { ...params, starting_after: startingAfter },
+        options,
+      );
+      for (const payment of page.data) {
+        yield payment;
+      }
+      const last = page.data.at(-1);
+      if (!page.has_more || !last) return;
+      startingAfter = last.id;
+    }
   }
 
   /**
@@ -43,10 +70,32 @@ export class Payment {
    *
    * @link https://developers.satispay.com/reference/create-a-payment
    */
-  async create(data: CreatePaymentRequest) {
-    return this.satispay.post<CreatePaymentResponse>(`${this.apiPath}`, {
+  async create(data: CreatePaymentRequest, options?: RequestOptions) {
+    return this.satispay.post<CreatePaymentResponse>(this.apiPath, {
+      ...options,
       body: data,
     });
+  }
+
+  /**
+   * Refunds (fully or partially) a payment. Wrapper over `create` with the `REFUND` flow.
+   *
+   * @link https://developers.satispay.com/reference/refund
+   */
+  async refund(
+    parentPaymentId: string,
+    data: RefundPaymentRequest,
+    options?: RequestOptions,
+  ) {
+    return this.create(
+      {
+        ...data,
+        flow: "REFUND",
+        currency: "EUR",
+        parent_payment_uid: parentPaymentId,
+      },
+      options,
+    );
   }
 
   /**
@@ -54,9 +103,14 @@ export class Payment {
    *
    * @link https://developers.satispay.com/reference/update-a-payment
    */
-  async update(id: string, data: UpdatePaymentRequest) {
-    return this.satispay.put<UpdatePaymentResponse>(`${this.apiPath}/${id}`, {
-      body: data,
-    });
+  async update(
+    id: string,
+    data: UpdatePaymentRequest,
+    options?: RequestOptions,
+  ) {
+    return this.satispay.put<UpdatePaymentResponse>(
+      `${this.apiPath}/${encodeURIComponent(id)}`,
+      { ...options, body: data },
+    );
   }
 }
