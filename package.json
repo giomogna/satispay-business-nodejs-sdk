@@ -1,6 +1,6 @@
 {
   "name": "satispay-business",
-  "version": "0.1.0-next.3",
+  "version": "1.0.0-next.4",
   "description": "Unofficial TypeScript SDK for the Satispay GBusiness API (HTTP-signature auth, zero runtime dependencies)",
   "keywords": [
     "satispay",
