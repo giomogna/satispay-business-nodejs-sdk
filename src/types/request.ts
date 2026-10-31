@@ -39,7 +39,11 @@ export interface AdditionalHeaders {
   "x-satispay-tracking-code"?: string;
 }
 
-export interface RequestOptions extends Pick<RequestInit, "signal"> {
+export interface RequestOptions {
+  /**
+   * An `AbortSignal` to cancel the request
+   */
+  signal?: AbortSignal;
   /**
    * The idempotent token of the request
    *
@@ -47,4 +51,11 @@ export interface RequestOptions extends Pick<RequestInit, "signal"> {
    */
   idempotencyKey?: string;
   additionalHeaders?: AdditionalHeaders;
+}
+
+export interface InternalRequestOptions extends RequestOptions {
+  /** JSON-serializable request body */
+  body?: unknown;
+  /** Query parameters; `undefined` values are skipped */
+  query?: object;
 }

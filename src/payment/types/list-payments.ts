@@ -8,7 +8,7 @@ export interface ListPaymentsRequest {
   /**
    * A limit on the number of objects to be returned, between 1 and 100
    */
-  limit?: string;
+  limit?: number;
   /**
    * Is the id that defines your place in the list when you make a payment list request
    */
@@ -16,7 +16,7 @@ export interface ListPaymentsRequest {
   /**
    * Is the timestamp (in milliseconds) that defines your place in the list when you make a payment list request
    */
-  starting_after_timestamp?: string;
+  starting_after_timestamp?: number | string;
 }
 
 export interface ListPaymentsResponse {

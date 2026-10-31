@@ -15,5 +15,7 @@ export interface UpdatePaymentRequest {
   payment_options?: PaymentOptions;
 }
 
-export interface UpdatePaymentResponse
-  extends Omit<Payment, "daily_closure" | "payment_method"> {}
+export type UpdatePaymentResponse = Omit<
+  Payment,
+  "daily_closure" | "payment_method"
+>;

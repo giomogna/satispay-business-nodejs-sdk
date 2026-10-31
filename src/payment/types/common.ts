@@ -12,6 +12,15 @@ export interface Payment {
    */
   type: "TO_BUSINESS" | "REFUND_TO_BUSINESS";
   /**
+   * Flow used to create the payment
+   * @deprecated Reported by the API but deprecated
+   */
+  flow?: string;
+  /**
+   * @deprecated Use `external_code`
+   */
+  description?: string;
+  /**
    * Amount of the payment in cents
    */
   amount_unit: number;
@@ -30,7 +39,17 @@ export interface Payment {
   /**
    * Additional metadata of the payment
    */
-  metadata: any;
+  metadata: Record<string, unknown> | null;
+  /**
+   * Redirect url (MATCH_CODE, MATCH_USER and FUND_LOCK flows only)
+   */
+  redirect_url?: string;
+  /**
+   * Payment options (e.g. Buy Now Pay Later)
+   */
+  payment_options?: {
+    buy_now_pay_later?: { is_buy_now_pay_later: boolean };
+  };
   /**
    * The sender actor of the payment
    */
@@ -42,11 +61,15 @@ export interface Payment {
     /**
      * Type of the actor
      */
-    type: "CONSUMER";
+    type: "CONSUMER" | "SHOP";
     /**
      * Short name of the actor
      */
     name?: string;
+    /**
+     * Profile pictures of the actor, when available
+     */
+    profile_pictures?: ProfilePictures;
   };
   /**
    * The receiver actor of the payment
@@ -59,7 +82,11 @@ export interface Payment {
     /**
      * Type of the actor
      */
-    type: "SHOP";
+    type: "CONSUMER" | "SHOP";
+    /**
+     * Profile pictures of the actor, when available
+     */
+    profile_pictures?: ProfilePictures;
   };
   /**
    * Timestamp of payment insertion
@@ -89,11 +116,20 @@ export interface Payment {
 
   payment_method?: {
     meal_voucher?: {
+      /** Amount paid with meal vouchers, in cents */
       amount_unit: number;
+      /** Number of meal vouchers used */
       number: number;
+    };
+    fringe_benefit?: {
+      /** Amount paid with fringe benefit, in cents */
+      amount_unit: number;
     };
   };
 }
+
+/** Picture URLs by size (e.g. `small`, `medium`, `large`) */
+export type ProfilePictures = Record<string, string | undefined>;
 
 export interface PaymentMethodOptions {
   meal_voucher?: {
